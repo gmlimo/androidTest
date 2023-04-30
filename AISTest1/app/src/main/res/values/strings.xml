@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Options</string>
+    <string name="automatic_irrigation_system">Automatic Irrigation System</string>
+    <string name="catalog">Catalog</string>
+    <string name="browse">Browse</string>
+    <string name="temperature">Temperature: </string>
+    <string name="humidity">Humidity:</string>
+    <string name="humidity_control">Humidity Control</string>
+    <string name="auto">Auto</string>
+    <string name="manual">Manual</string>
+    <string name="status">Status: </string>
+    <string name="system_on">System On</string>
+</resources>
