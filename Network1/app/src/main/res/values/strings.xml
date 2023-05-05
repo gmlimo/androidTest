@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Network1</string>
+    <string name="choosen_planet">El planeta seleccionado es: </string>
+</resources>
