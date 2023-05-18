@@ -10,7 +10,14 @@ import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import org.bedu.logintest2.classes.User
+import org.bedu.logintest2.classes.datos
+import org.bedu.logintest2.classes.match
 
+var mapa: Map<String, String> = mutableMapOf(
+    "1234" to "gmlimon",
+    "hola" to "teaby",
+    "5678" to "mbravo"
+)
 class LoginActivity : AppCompatActivity() {
 
     //Views declaration
@@ -18,6 +25,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var userName: TextInputEditText
     private lateinit var textPass: TextInputEditText
     private lateinit var loginButton: ImageButton
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,15 +52,22 @@ class LoginActivity : AppCompatActivity() {
             val usuario = userName.getText().toString() //Gets the userName
             val contraseña = textPass.getText().toString() //Gets the password
 
-            if (user.login(usuario, contraseña)){
+            val bundle = intent.extras
+            val R_user = bundle?.getString(USER_NAME)
+            val R_passwrd = bundle?.getString(PASSWRD)
+
+            if (R_user != null) {
+                if (R_passwrd != null) {
+                    mapa = mutableMapOf(R_passwrd to R_user)
+                }
+            }
+
+            //Toast.makeText(this, "$R_user " + "$R_passwrd", Toast.LENGTH_SHORT).show()
+
+            if (login(usuario, contraseña)){
                 //println("Login exitoso")
                 Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT).show()
 
-                //Next activity call on a successfull login
-                /*  val intent = Intent(this, ActivityProductSel::class.java).also{
-                      it.putExtra("extraG", "Bienvenido")
-                  }
-                  startActivity(intent)*/
 
             } else {
                 //println("Usuario y/o contraseña incorrectos")
@@ -59,4 +75,21 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+}
+
+fun login(user: String, password: String): Boolean {
+
+    fun validate(input: String) = input.isNotEmpty()
+
+    val userValidated = validate(user)
+    val passwordValidated = validate(password)
+
+    for ((key, value) in mapa){
+        //println("The password is $key and the user is $value")
+        if (key == password && value == user) match = true else match = false
+        if (match == true) break
+    }
+
+    return userValidated && passwordValidated && match
 }

@@ -24,10 +24,15 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 
 private val requestUrl: String =
-    "https://data-47065-default-rtdb.firebaseio.com/location.json"
+    "https://garden-21dd2-default-rtdb.firebaseio.com/location.json"
 private var respuesta: String = ""
+private var dhumidity: Float = 0.0f
+private var temperature: Float = 0.0f
+private var humidity: Float = 0.0f
 
 class AIS_Main : AppCompatActivity() {
 
@@ -42,6 +47,7 @@ class AIS_Main : AppCompatActivity() {
     private lateinit var humText: TextView
     private lateinit var tempText: TextView
     private lateinit var humTextF: TextView
+    private lateinit var statusText: TextView
 
     private lateinit var garden: Event
 
@@ -61,6 +67,7 @@ class AIS_Main : AppCompatActivity() {
         humText = findViewById(R.id.humCon_Text)
         tempText = findViewById(R.id.tempView)
         humTextF = findViewById(R.id.humText)
+        statusText = findViewById(R.id.statusText)
 
         //Se esconde el control manual
         controlView.isVisible = false
@@ -68,14 +75,25 @@ class AIS_Main : AppCompatActivity() {
         //OnClick Listener para el botón de Auto
         autoButton.setOnClickListener {
             controlView.isVisible = false
+            statusText.text = "Automatic Mode"
 
             runBlocking {
 
                 val task = GlobalScope.launch {
+                    //Get new values from http get request
                     garden = getTemperatureTask()!!
                 }
 
                 task.join()
+                //Write new values
+                dhumidity = quantity.toFloat()
+                temperature = garden.temperature.toFloat()
+                humidity = garden.humidity.toFloat()
+
+                //OKhttp post request
+                postRequest(dhumidity, temperature, humidity)
+
+                //Update data
                 tempText.text = garden?.temperature.toString()
                 humTextF.text = garden?.humidity.toString()
             }
@@ -84,6 +102,7 @@ class AIS_Main : AppCompatActivity() {
         //OnClick Listener para el botón de Manual
         manualButton.setOnClickListener {
             controlView.isVisible = true
+            statusText.text = "Manual Mode"
         }
 
         //On ClickListener for the Plus Button
@@ -200,6 +219,31 @@ class AIS_Main : AppCompatActivity() {
             Log.e("Mensaje", "Problem parsing the event JSON Results", e)
         }
         return null
+    }
+
+    private fun postRequest(dhumidity: Float, temperature: Float, humidity: Float) {
+        val client = OkHttpClient()
+        // Crear un objeto JSON con el nuevo valor de "dhumidity"
+        val json = "{\"dhumidity\": $dhumidity, \"temperature\": $temperature, \"humidity\": $humidity}"
+        val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), json)
+        // Crear la solicitud PUT con la URL del endpoint y el RequestBody
+        val request = Request.Builder()
+            .url("https://garden-21dd2-default-rtdb.firebaseio.com/location/house.json")
+            .put(requestBody)
+            .build()
+        // Ejecutar la solicitud y manejar la respuesta del servidor
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+            }
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) {
+                    throw IOException("Unexpected code $response")
+                }
+                val responseData = response.body?.string()
+                println(responseData)
+            }
+        })
     }
 }
 

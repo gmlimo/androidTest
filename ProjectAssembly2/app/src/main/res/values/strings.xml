@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Café BEDU</string>
+
+    <string name="username">User Name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="last_name">Last Name</string>
+    <string name="sign_in">Sign In</string>
+    <string name="given_name">Given Name</string>
+    <string name="email">Email</string>
+    <string name="donuts">Donuts</string>
+    <string name="coffee">Coffee</string>
+</resources>

@@ -4,16 +4,12 @@ plugins {
 }
 
 android {
-    namespace 'org.bedu.logintest2'
+    namespace 'com.example.projectassembly'
     compileSdk 33
 
-    buildFeatures {
-        viewBinding true
-    }
-
     defaultConfig {
-        applicationId "org.bedu.logintest2"
-        minSdk 28
+        applicationId "com.example.projectassembly"
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
