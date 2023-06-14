@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Cafe BEDU</string>
+
+    <string name="username">User Name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="last_name">Last Name</string>
+    <string name="sign_in">Sign In</string>
+    <string name="given_name">Given Name</string>
+    <string name="email">Email</string>
+    <string name="donuts">Donuts</string>
+    <string name="coffee">Coffee</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="Amount_to_pay">Amount to pay $</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="select_size">Select Size</string>
+    <string name="not_empty">Field must not be empty</string>
+    <string name="success">Login successful</string>
+    <string name="fail">User and password did not match</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Products</string>
+    <string name="profile">Profile</string>
+    <string name="cart">Cart</string>
+    <string name="upperLimit">The quantity can´t be more than 50</string>
+    <string name="lowerLimit">The quantity can´t be less than 0</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="jumbo">Jumbo</string>
+    <string name="no_selection">There is no selection</string>
+    <string name="Select_again">Try again with your selection</string>
+    <string name="size_not_selected">Size was not selected</string>
+    <string name="remove_item">Remove item?</string>
+    <string name="delete">Delete</string>
+
+</resources>

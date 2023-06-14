@@ -1,10 +1,12 @@
 package org.bedu.logintest2
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -46,18 +48,22 @@ class LoginActivity : AppCompatActivity() {
 
         preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) //Modo privado
 
-        val user = User("William", 2, "1234", "wlimonQcituspower.com")
+        val transitionXml = TransitionInflater
+            .from(this).inflateTransition(R.transition.activity_transition).apply {
+                excludeTarget(android.R.id.statusBarBackground, true)
+                excludeTarget(android.R.id.navigationBarBackground, true)
+            }
 
-        setValues()
+        window.exitTransition = transitionXml
+
+
         signText.setOnClickListener {
-
             val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
         //On ClickListener for loginButton
-        loginButton.setOnClickListener{it
-
+        loginButton.setOnClickListener {
             val usuario = userName.getText().toString() //Gets the userName
             val contraseña = textPass.getText().toString() //Gets the password
 
@@ -66,55 +72,24 @@ class LoginActivity : AppCompatActivity() {
                 .putString(PASSWORD_KEY, contraseña)
                 .apply()
 
-      /*      val bundle = intent.extras
-            val R_user = bundle?.getString(USER_NAME)
-            val R_passwrd = bundle?.getString(PASSWRD)
 
-            if (R_user != null) {
-                if (R_passwrd != null) {
-                    mapa = mutableMapOf(R_passwrd to R_user)
-                }
-            }*/
-
-            //Toast.makeText(this, "$R_user " + "$R_passwrd", Toast.LENGTH_SHORT).show()
-
-          /*  if (login(usuario, contraseña)){
-                //println("Login exitoso")
-                Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT).show()
-
-
-            } else {
-                //println("Usuario y/o contraseña incorrectos")
-                Toast.makeText(this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-            }*/
-        }
-    }
-
-    fun setValues(){
-        val user = preferences.getString(USER_KEY,"")
-        val pass = preferences.getString(PASSWORD_KEY,"")
-
-            //los atamos a sus vistas
-            userName.setText(user)
-            textPass.setText(pass)
         }
     }
 
 
+    fun login(user: String, password: String): Boolean {
 
+        fun validate(input: String) = input.isNotEmpty()
 
-fun login(user: String, password: String): Boolean {
+        val userValidated = validate(user)
+        val passwordValidated = validate(password)
 
-    fun validate(input: String) = input.isNotEmpty()
+        for ((key, value) in mapa) {
+            //println("The password is $key and the user is $value")
+            if (key == password && value == user) match = true else match = false
+            if (match == true) break
+        }
 
-    val userValidated = validate(user)
-    val passwordValidated = validate(password)
-
-    for ((key, value) in mapa){
-        //println("The password is $key and the user is $value")
-        if (key == password && value == user) match = true else match = false
-        if (match == true) break
+        return userValidated && passwordValidated && match
     }
-
-    return userValidated && passwordValidated && match
 }
