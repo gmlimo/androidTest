@@ -5,11 +5,11 @@ abstract class Product(open val name: String) {
 
     //Todos los productos tienen un sabor, tamaño, precio y se especifíca una cantidad
     abstract val flavor: String
-    open protected var price: Float = 0.0f
+    //open protected var price: Float = 0.0f
 
     //Función que calcula la cantidad a pagar de un producto génerico en base a la cantidad y tamaño
 
-    open fun subTotal(cantidad: Int, tamaño: String) =
+    open fun subTotal(cantidad: Int, tamaño: String, price: Float) =
         when (tamaño) {
             "Small" -> cantidad * price
             "Medium" -> 1.2f * cantidad * price

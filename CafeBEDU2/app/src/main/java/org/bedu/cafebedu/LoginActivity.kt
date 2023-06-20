@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
                 if (getLoginData()) {
                     configTransition()
                     changeActivity(productSelAct)
-                    Toast.makeText(this@LoginActivity, getString(R.string.success), Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(this@LoginActivity, getString(R.string.success), Toast.LENGTH_SHORT).show()
                 }
                 else {
                     Toast.makeText(this@LoginActivity, getString(R.string.fail), Toast.LENGTH_SHORT).show()

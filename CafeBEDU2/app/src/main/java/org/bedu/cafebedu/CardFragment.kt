@@ -4,21 +4,26 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.bedu.cafebedu.api.api
 import org.bedu.cafebedu.files.Coffee
 import org.bedu.cafebedu.files.Donut
 import org.bedu.cafebedu.databinding.FragmentCardBinding
-
-val PRICE_D = "price_d"
-val QUANTITY1 = "quantity_1"
-val PRICE_C = "price_c"
-val QUANTITY2 = "quantity_2"
-
+import org.bedu.cafebedu.model.ProductData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.IOException
 
 class CardFragment : Fragment(R.layout.fragment_card) {
 
@@ -121,10 +126,9 @@ class CardFragment : Fragment(R.layout.fragment_card) {
                     //Pass the selection to variable
                     size_Selection1 = size[position]
                     //Get the subtotal to pay
-
                     if (size_Selection1 != " ") {
-                        priceD = donas.subTotal(quantity1, size_Selection1)
-
+                        val price = preferences.getFloat(DONUT_KEY, 0.0f)
+                        priceD = donas.subTotal(quantity1, size_Selection1, price)
 
                         //val shared: SharedPreferences? =
                             //activity?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -134,10 +138,6 @@ class CardFragment : Fragment(R.layout.fragment_card) {
 
                     }
 
-               /*     pref?.edit()
-                        ?.putInt(QUANTITY1, quantity1)
-                        ?.putFloat(PRICE_D, priceD)
-                        ?.apply()*/
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -162,21 +162,14 @@ class CardFragment : Fragment(R.layout.fragment_card) {
                     //Pass the selection to variable
                     size_Selection2 = size[position]
                     //Get the subtotal to pay
-
                     if (size_Selection2 != " ") {
-                        priceC = coffee.subTotal(quantity2, size_Selection2)
-
+                        val price = preferences.getFloat(COFFEE_KEY, 0.0f)
+                        priceC = coffee.subTotal(quantity2, size_Selection2, price)
 
                         args.putInt("QUANTITY2", quantity2)
                         args.putFloat("PRICE_C", priceC)
                         cartFragment.arguments = args
-
                     }
-
-                    /*     pref?.edit()
-                             ?.putInt(QUANTITY1, quantity1)
-                             ?.putFloat(PRICE_D, priceD)
-                             ?.apply()*/
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -190,8 +183,6 @@ class CardFragment : Fragment(R.layout.fragment_card) {
             //Adaptador para mostrar elementos del menú del Spinner
             val menuAdapter2 = ArrayAdapter(this@CardFragment?.requireContext() as Context, android.R.layout.simple_spinner_item, size)
             coffeeSize.adapter = menuAdapter2
-
-
         }
 
     }
@@ -203,6 +194,4 @@ class CardFragment : Fragment(R.layout.fragment_card) {
             .create()
             .show()
     }
-
-
 }
