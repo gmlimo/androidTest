@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hash</title>
+</head>
+<body style="background-color: black;">
+  <textarea id="hex-map" placeholder="paste hex key map here" style="width: 100%; background-color: black; color: white;"></textarea>
+  <button id="convert">Convert</button>
+  <p><code style="color: white;" id="result"></code></p>
+
+  <script>
+    document.getElementById('convert').addEventListener('click', function() {
+      document.getElementById('result').textContent = btoa(
+        document.getElementById('hex-map').value
+          .split(':')
+          .map(hc => String.fromCharCode(parseInt(hc, 16)))
+          .join('')
+      );
+    });
+  </script>
+</body>
+</html>

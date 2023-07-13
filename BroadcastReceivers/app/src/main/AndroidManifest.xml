@@ -23,15 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".ReceiverOne"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="org.bedu.actions.SALUDO">
-                </action>
-            </intent-filter>
-
-        </receiver>
     </application>
 
 </manifest>

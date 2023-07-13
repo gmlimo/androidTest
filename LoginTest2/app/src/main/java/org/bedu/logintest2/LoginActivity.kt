@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
+import com.google.firebase.FirebaseApp
 import org.bedu.logintest2.classes.User
 import org.bedu.logintest2.classes.datos
 import org.bedu.logintest2.classes.match
@@ -45,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
         userName = findViewById(R.id.userNameText)
         textPass = findViewById(R.id.passText2)
         loginButton = findViewById(R.id.loginButton)
+
+        FirebaseApp.initializeApp(this)
 
         preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) //Modo privado
 

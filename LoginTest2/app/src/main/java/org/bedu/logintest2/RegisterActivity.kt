@@ -1,18 +1,21 @@
 package org.bedu.logintest2
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
-import com.google.android.material.textfield.TextInputEditText
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.bedu.logintest2.classes.Data
 import org.bedu.logintest2.classes.User
 import org.bedu.logintest2.databinding.ActivityRegisterBinding
 
 const val USER_NAME = "USER_NAME"
 const val PASSWRD = "PASSWRD"
+
+private lateinit var auth: FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -28,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = Firebase.auth
 
         var datos = Data()
         val bundle = Bundle()
@@ -41,7 +45,9 @@ class RegisterActivity : AppCompatActivity() {
             val mapa = datos.copy(loginData = mutableMapOf(contraseña to usuario))
             val user = User(usuario, 0, contraseña, "")
 
-            if (user.register(usuario, contraseña)) {
+            createAccount(usuario, contraseña)
+
+           /* if (user.register(usuario, contraseña)) {
 
               /*  datos.loginData.apply { ->
                     (mapa)
@@ -51,10 +57,27 @@ class RegisterActivity : AppCompatActivity() {
                 bundle.putString(PASSWRD, "${contraseña}")
                 val intent = Intent(this, LoginActivity::class.java).apply {
                     putExtras(bundle)
-                }
-                startActivity(intent)
+                }*/
+            bundle.putString(USER_NAME, "${usuario}")
+            bundle.putString(PASSWRD, "${contraseña}")
+            val intent = Intent(this, LoginActivity::class.java).apply {
+                putExtras(bundle)
             }
+            startActivity(intent)
 
         }
+    }
+    private fun createAccount(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this){ task ->
+                if (task.isSuccessful){
+                    Log.d(TAG, "createAccount: success")
+                    val user = auth.currentUser
+                    //updateUI(user, null)
+                } else {
+                    Log.w(TAG, "createAccount: failure", task.exception)
+                    //updateUI(null, task.exception)
+                }
+            }
     }
 }
