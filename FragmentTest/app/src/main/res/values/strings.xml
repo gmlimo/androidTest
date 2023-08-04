@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FragmentTest</string>
+    <string name="fragment_1">Fragment 1</string>
+    <string name="fragment_2">Fragment 2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="this_is_the_blankfragment">This is the BlankFragment</string>
+    <string name="update_app">Update App</string>
+
+    <string name="downloading">Downloading…</string>
+    <string name="title_file_download">APK is downloading</string>
+    <string name="storage_access_required">Storage access is required to downloading the file.</string>
+    <string name="storage_permission_denied">Storage permission request was denied.</string>
+    <string name="ok">OK</string>
+
+    <string name="new_version">New version</string>
+    <string name="new_version_msg">We recommend installing the update</string>
+
+    <string name="btn_update">Update</string>
+    <string name="btn_cancel">Cancel</string>
+</resources>

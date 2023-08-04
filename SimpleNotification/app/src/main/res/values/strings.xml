@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SimpleNotification</string>
+
+    <!-- textos para la push simple -->
+    <string name="simple_title">Bedu</string>
+    <string name="simple_body">¡Esta es nuestra primera notificación creada!</string>
+
+</resources>
