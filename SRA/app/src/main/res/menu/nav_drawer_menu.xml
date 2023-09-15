@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/primary">
+        <item
+            android:id="@id/itemFragment"
+            android:icon="@drawable/ic_outline_home_24"
+            android:title="@string/home" />
+        <item
+            android:id="@id/controllerFragment"
+            android:icon="@drawable/ic_baseline_settings_remote_24"
+            android:title="@string/controller" />
+    </group>
+    <item
+        android:id="@+id/settings_dest"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/settings" />
+</menu>

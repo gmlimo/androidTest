@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="edu.upbc.sra.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="edu.upbc.sra.ItemFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list" >
+        <action
+            android:id="@+id/action_itemFragment_to_controllerFragment"
+            app:destination="@id/controllerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/controllerFragment"
+        android:name="edu.upbc.sra.ControllerFragment"
+        android:label="fragment_controller"
+        tools:layout="@layout/fragment_controller" />
+</navigation>

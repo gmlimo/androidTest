@@ -47,17 +47,7 @@ class RegisterActivity : AppCompatActivity() {
 
             createAccount(usuario, contraseña)
 
-           /* if (user.register(usuario, contraseña)) {
 
-              /*  datos.loginData.apply { ->
-                    (mapa)
-                }*/
-                Toast.makeText(this, mapa.toString(), Toast.LENGTH_SHORT).show()
-                bundle.putString(USER_NAME, "${usuario}")
-                bundle.putString(PASSWRD, "${contraseña}")
-                val intent = Intent(this, LoginActivity::class.java).apply {
-                    putExtras(bundle)
-                }*/
             bundle.putString(USER_NAME, "${usuario}")
             bundle.putString(PASSWRD, "${contraseña}")
             val intent = Intent(this, LoginActivity::class.java).apply {
