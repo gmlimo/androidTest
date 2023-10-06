@@ -5,6 +5,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\UPBC\\AndroidProjects\\Keys\\KeyAgain.keystore')
+            storePassword 'limg0703'
+            keyAlias 'key2'
+            keyPassword 'limg0703'
+        }
+    }
     namespace 'edu.upbc.sra'
     compileSdk 33
 
